@@ -3,6 +3,8 @@ const getSignup = (req, res) => {
 }
 
 const postSignup = (req, res) => {
+	const { username, password } = req.body
+
 	res.send(' user created')
 }
 
@@ -11,6 +13,8 @@ const getLogin = (req, res) => {
 }
 
 const postLogin = (req, res) => {
+	const { username, password } = req.body
+
 	res.send('user authenticated')
 }
 
