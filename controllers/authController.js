@@ -1,11 +1,15 @@
+const User = require('../models/user')
+
 const getSignup = (req, res) => {
 	res.render('signup')
 }
 
-const postSignup = (req, res) => {
+const postSignup = async (req, res) => {
 	const { username, password } = req.body
+	const user = new User({ username, password })
 
-	res.send(' user created')
+	await user.save()
+	res.status(201).json(user.toJSON())
 }
 
 const getLogin = (req, res) => {
