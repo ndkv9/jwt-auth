@@ -21,9 +21,10 @@ userSchema.set('toJSON', {
 		ret.id = ret._id
 		delete ret._id
 		delete ret.__v
+		delete ret.password
 	},
 })
 
-userSchema.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator, { message: 'expected {PATH} to be unique' })
 
 module.exports = mongoose.model('User', userSchema)

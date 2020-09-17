@@ -7,6 +7,7 @@ const errorHandler = (err, req, res, next) => {
 		return res.status(400).send({ error: 'malformatted id' })
 	} else if (err.name === 'ValidationError') {
 		let errors = { username: '', password: '' }
+
 		// validation errors
 		Object.values(err.errors).map(({ properties }) => {
 			errors[properties.path] = properties.message
