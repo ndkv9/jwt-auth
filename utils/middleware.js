@@ -13,7 +13,7 @@ const errorHandler = (err, req, res, next) => {
 			errors[properties.path] = properties.message
 		})
 
-		return res.status(400).json(errors)
+		return res.status(400).json({ error: errors })
 	} else if (err.name === 'JsonWebTokenError') {
 		return res.status(401).json({ error: 'invalid token' })
 	}

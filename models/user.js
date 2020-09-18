@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
+const bcrypt = require('bcrypt')
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
@@ -7,6 +8,7 @@ const userSchema = new Schema({
 		type: String,
 		required: [true, 'Please enter a username'],
 		unique: true,
+		minlength: [6, 'minimum username length is 6 characters'],
 		lowercase: true,
 	},
 	password: {
@@ -26,5 +28,8 @@ userSchema.set('toJSON', {
 })
 
 userSchema.plugin(uniqueValidator, { message: 'expected {PATH} to be unique' })
-
+userSchema.pre('save', async function () {
+	const saltRound = 10
+	this.password = await bcrypt.hash(this.password, saltRound)
+})
 module.exports = mongoose.model('User', userSchema)
