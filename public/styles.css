@@ -124,7 +124,7 @@ header .btn {
 	display: inline-block;
 	font-size: 0.8em;
 }
-.recipes {
+.guys {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 30px;
@@ -132,7 +132,7 @@ header .btn {
 	margin: 80px AUTO;
 	max-width: 1200px;
 }
-.recipe {
+.guy {
 	display: inline-block;
 	border-radius: 20px;
 	background: white;
@@ -140,7 +140,7 @@ header .btn {
 	text-align: center;
 	padding: 0 20px 30px 20px;
 }
-.recipe img {
+.guy img {
 	width: 115px;
 	height: 130px;
 	margin: -30px auto 20px;

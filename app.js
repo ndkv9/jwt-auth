@@ -31,8 +31,8 @@ mongoose
 // routes
 app.get('*', middleware.checkUser)
 app.get('/', middleware.requiredAuth, (req, res) => res.render('home'))
-app.get('/smoothies', middleware.requiredAuth, (req, res) =>
-	res.render('smoothies')
+app.get('/fallguys', middleware.requiredAuth, (req, res) =>
+	res.render('fallguys')
 )
 app.use('/', authRoutes)
 
