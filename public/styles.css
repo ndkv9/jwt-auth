@@ -5,7 +5,7 @@ body {
 	margin: 20px 40px;
 	font-size: 1.2rem;
 	letter-spacing: 1px;
-	background: #fafafa;
+	background: #f5c946;
 }
 h1,
 h2,
@@ -25,6 +25,7 @@ footer {
 	font-family: 'Quicksand', sans-serif;
 	color: #444;
 }
+
 ul {
 	list-style-type: none;
 }
@@ -54,12 +55,14 @@ nav li a {
 }
 .btn {
 	border-radius: 36px;
-	background: #fee996;
+	background: #00b6fe;
+	color: white;
 }
 form h2 {
 	font-size: 2.4em;
 	font-weight: 900;
 	margin-bottom: 40px;
+	text-align: center;
 }
 form {
 	width: 360px;
@@ -67,7 +70,8 @@ form {
 	padding: 30px;
 	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
 	border-radius: 10px;
-	background: white;
+
+	background: #00b6fe;
 }
 input {
 	padding: 10px 12px;
@@ -83,7 +87,7 @@ label {
 button {
 	margin-top: 30px;
 	border-radius: 36px;
-	background: #fee996;
+	background: #97cc3c;
 	border: 0;
 	text-transform: uppercase;
 	font-weight: 700;
@@ -135,7 +139,7 @@ header .btn {
 .guy {
 	display: inline-block;
 	border-radius: 20px;
-	background: white;
+	background: #00b6fe;
 	position: relative;
 	text-align: center;
 	padding: 0 20px 30px 20px;
@@ -145,8 +149,15 @@ header .btn {
 	height: 130px;
 	margin: -30px auto 20px;
 }
+.guy p {
+	color: rgb(241, 234, 234);
+}
+.welcome {
+	color: #e03e53;
+}
+
 footer {
 	text-align: center;
 	margin-top: 120px;
-	color: #aaa;
+	color: #e03e53;
 }
