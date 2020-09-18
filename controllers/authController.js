@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
 
 const createToken = id => {
 	return jwt.sign({ id }, process.env.SECRET, { expiresIn: 3600 * 24 })
@@ -21,13 +22,22 @@ const postSignup = async (req, res) => {
 }
 
 const getLogin = (req, res) => {
-	res.render('login')
+	let { username, password } = req.body
 }
 
-const postLogin = (req, res) => {
+const postLogin = async (req, res) => {
 	const { username, password } = req.body
 
-	res.send('user authenticated')
+	const user = await User.findOne({ username: username })
+	const passwordCorrect =
+		user === null ? false : await bcrypt.compare(password, user.password)
+	if (!(user && passwordCorrect)) {
+		res.status(401).json({ error: 'invalid username or password' })
+	}
+
+	const token = createToken(user._id)
+	res.cookie('token', token, { httpOnly: true })
+	res.json(user.toJSON())
 }
 
 module.exports = { getLogin, postLogin, getSignup, postSignup }

@@ -28,8 +28,23 @@ userSchema.set('toJSON', {
 })
 
 userSchema.plugin(uniqueValidator, { message: 'expected {PATH} to be unique' })
+
 userSchema.pre('save', async function () {
 	const saltRound = 10
 	this.password = await bcrypt.hash(this.password, saltRound)
 })
+
+// static method to log in user
+userSchema.static.login = async function (username, password) {
+	const user = await this.findOne({ username })
+	if (user) {
+		const auth = await bcrypt.compare(password, user.password)
+		if (auth) {
+			return user
+		}
+		throw Error('incorrect password')
+	}
+	throw Error('incorrect username')
+}
+
 module.exports = mongoose.model('User', userSchema)
