@@ -16,6 +16,12 @@ const errorHandler = (err, req, res, next) => {
 		return res.status(400).json({ error: errors })
 	} else if (err.name === 'JsonWebTokenError') {
 		return res.status(401).json({ error: 'invalid token' })
+	} else if (err.message === 'incorrect username') {
+		const error = { username: 'incorrect username' }
+		return res.status(401).json({ error })
+	} else if (err.message === 'incorrect password') {
+		const error = { password: 'incorrect password' }
+		return res.status(401).json({ error })
 	}
 
 	console.error(err.message)

@@ -22,22 +22,14 @@ const postSignup = async (req, res) => {
 }
 
 const getLogin = (req, res) => {
-	let { username, password } = req.body
+	res.render('login')
 }
 
 const postLogin = async (req, res) => {
 	const { username, password } = req.body
 
-	const user = await User.findOne({ username: username })
-	const passwordCorrect =
-		user === null ? false : await bcrypt.compare(password, user.password)
-	if (!(user && passwordCorrect)) {
-		res.status(401).json({ error: 'invalid username or password' })
-	}
-
-	const token = createToken(user._id)
-	res.cookie('token', token, { httpOnly: true })
-	res.json(user.toJSON())
+	const user = await User.login(username, password)
+	res.status(200).json(user.toJSON())
 }
 
 module.exports = { getLogin, postLogin, getSignup, postSignup }
