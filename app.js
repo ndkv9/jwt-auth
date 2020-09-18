@@ -13,8 +13,6 @@ app.use(express.static('public'))
 app.use(express.json())
 app.use(cookieParser())
 
-app.use('/', authRoutes)
-
 // view engine
 app.set('view engine', 'ejs')
 
@@ -31,8 +29,12 @@ mongoose
 	.catch(err => console.log(err))
 
 // routes
-app.get('/', (req, res) => res.render('home'))
-app.get('/smoothies', (req, res) => res.render('smoothies'))
+app.get('*', middleware.checkUser)
+app.get('/', middleware.requiredAuth, (req, res) => res.render('home'))
+app.get('/smoothies', middleware.requiredAuth, (req, res) =>
+	res.render('smoothies')
+)
+app.use('/', authRoutes)
 
 app.use(middleware.unknownEnpoint)
 app.use(middleware.errorHandler)

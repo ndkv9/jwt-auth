@@ -2,8 +2,9 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+const maxAge = '3 days'
 const createToken = id => {
-	return jwt.sign({ id }, process.env.SECRET, { expiresIn: 3600 * 24 })
+	return jwt.sign({ id }, process.env.SECRET, { expiresIn: maxAge })
 }
 
 const getSignup = (req, res) => {
@@ -29,7 +30,16 @@ const postLogin = async (req, res) => {
 	const { username, password } = req.body
 
 	const user = await User.login(username, password)
+	// attach token
+	const token = createToken(user._id)
+	res.cookie('token', token, { httpOnly: true, expiresIn: maxAge })
+	// response back
 	res.status(200).json(user.toJSON())
 }
 
-module.exports = { getLogin, postLogin, getSignup, postSignup }
+const getLogout = (req, res) => {
+	res.cookie('token', '', { maxAge: 1 })
+	res.redirect('/')
+}
+
+module.exports = { getLogin, postLogin, getSignup, postSignup, getLogout }
